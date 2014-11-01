@@ -15,14 +15,13 @@ angular.module('VirtualBook').controller('BookCtrl', function($scope, BookServic
         })
     };
     $scope.deleteBook = function(book) {
-        BookService.deleteBook(book).then(function(response) {
+        BookService.deleteBook(book).then(function(response){
             if(response.status === 200){
-                for(var i =0; i< $scope.books; i++){
-                    console.log(i);
-                    if($scope.books[i].title === book.title){
-                        $scope.books.splice(i,1);
-                    }
-                }
+                angular.forEach($scope.books, function(data,index){
+                   if(book.title === data.title){
+                       $scope.books.splice(index,1);
+                   }
+                });
             }
         })
     }
